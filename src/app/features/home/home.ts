@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { Balance } from './components/balance/balance';
 import { TransactionItem } from './components/transaction-item/transaction-item';
+import { Transaction } from '../../shared/transaction/interface/transaction';
+import { TransactionType } from '../../shared/transaction/enum/transaction-type';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +11,9 @@ import { TransactionItem } from './components/transaction-item/transaction-item'
   styleUrl: './home.scss',
 })
 export class Home {
-  transations = signal([
-    { type: 'income', value: 1000 },
-    { type: 'outcome', value: 500 },
-    { type: 'outcome', value: 500 },
+  transations = signal<Transaction[]>([
+    { title: 'Salário', type: TransactionType.INCOME, value: 1000 },
+    { title: 'Aluguel', type: TransactionType.OUTCOME, value: 500 },
+    { title: 'Mercado', type: TransactionType.OUTCOME, value: 500 },
   ]);
 }

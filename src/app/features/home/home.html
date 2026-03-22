@@ -1,11 +1,5 @@
 <app-balance [transations]="transations()"></app-balance>
 
-
 @for (item of transations(); track item) {
-  <div>
-    {{ item.value }} -
-    {{ item.type }}
-  </div>
-
-  <app-transaction-item></app-transaction-item>
+  <app-transaction-item [transaction]="item"></app-transaction-item>
 }
