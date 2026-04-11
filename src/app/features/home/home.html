@@ -2,4 +2,6 @@
 
 @for (item of transactions(); track item.title) {
   <app-transaction-item [transaction]="item"></app-transaction-item>
+} @empty {
+  <app-empty-state message="Nenhuma transação encontrada."></app-empty-state>
 }
