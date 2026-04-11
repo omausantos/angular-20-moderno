@@ -11,7 +11,7 @@ import { TransactionType } from '../../shared/transaction/enum/transaction-type'
   styleUrl: './home.scss',
 })
 export class Home {
-  transations = signal<Transaction[]>([
+  transactions = signal<Transaction[]>([
     { title: 'Salário', type: TransactionType.INCOME, value: 1000 },
     { title: 'Aluguel', type: TransactionType.OUTCOME, value: 500 },
     { title: 'Mercado', type: TransactionType.OUTCOME, value: 500 },
