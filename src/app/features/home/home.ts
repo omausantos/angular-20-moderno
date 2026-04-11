@@ -13,8 +13,8 @@ import { EmptyStateComponent } from "./components/empty-state/empty-state.compon
 })
 export class Home {
   transactions = signal<Transaction[]>([
-    // { title: 'Salário', type: TransactionType.INCOME, value: 1000 },
-    // { title: 'Aluguel', type: TransactionType.OUTCOME, value: 500 },
-    // { title: 'Mercado', type: TransactionType.OUTCOME, value: 500 },
+    { title: 'Salário', type: TransactionType.INCOME, value: 1000 },
+    { title: 'Aluguel', type: TransactionType.OUTCOME, value: 500 },
+    { title: 'Mercado', type: TransactionType.OUTCOME, value: 500 },
   ]);
 }
