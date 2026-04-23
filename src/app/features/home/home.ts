@@ -4,10 +4,12 @@ import { TransactionItem } from './components/transaction-item/transaction-item'
 import { Transaction } from '../../shared/transaction/interface/transaction';
 import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 import { TransactionsService } from '../../shared/transaction/service/transactions.service';
+import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [Balance, TransactionItem, EmptyStateComponent],
+  imports: [Balance, TransactionItem, EmptyStateComponent, MatButton, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
