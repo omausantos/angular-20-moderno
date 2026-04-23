@@ -3,8 +3,9 @@ import { Balance } from './components/balance/balance';
 import { TransactionItem } from './components/transaction-item/transaction-item';
 import { Transaction } from '../../shared/transaction/interface/transaction';
 import { TransactionType } from '../../shared/transaction/enum/transaction-type';
-import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 import { HttpClient } from '@angular/common/http';
+import { TransactionsService } from '../../shared/transaction/service/transactions-service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit {
-
-  private _httpClient = inject(HttpClient);
+  private _transactionsService = inject(TransactionsService);
   transactions = signal<Transaction[]>([]);
 
   ngOnInit(): void {
@@ -22,7 +22,15 @@ export class Home implements OnInit {
   }
 
   public getTransactions() {
-    this._httpClient.get<Transaction[]>('http://localhost:3000/transactions')
-      .subscribe((transactions) => this.transactions.set(transactions));
+    this._transactionsService
+      .getAll()
+      .subscribe({
+        next: (transactions) => {
+          this.transactions.set(transactions);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }
