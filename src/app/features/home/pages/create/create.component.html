@@ -6,4 +6,15 @@
     <mat-error>Título é <strong>obrigatório</strong></mat-error>
     }
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Valor</mat-label>
+    <span matTextPrefix>R$</span>
+    <input type="number" matInput formControlName="value" placeholder="Digite o valor da transação">
+    @if (form.controls.value.invalid) {
+    <mat-error>Valor é <strong>obrigatório</strong></mat-error>
+    }
+  </mat-form-field>
+  <div class="submit-container">
+    <button type="submit" matButton="filled" [disabled]="form.invalid">Salvar</button>
+  </div>
 </form>
