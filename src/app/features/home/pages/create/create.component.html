@@ -1,4 +1,13 @@
 <form [formGroup]="form">
+  <div>
+    <mat-button-toggle-group formControlName="type">
+      <mat-button-toggle [value]="transactionType.INCOME">Entrada</mat-button-toggle>
+      <mat-button-toggle [value]="transactionType.OUTCOME">Saida</mat-button-toggle>
+    </mat-button-toggle-group>
+    @if (form.controls.type.hasError('required')) {
+    <mat-error>Tipo de transação é <strong>obrigatório</strong></mat-error>
+    }
+  </div>
   <mat-form-field>
     <mat-label>Título</mat-label>
     <input matInput formControlName="title" placeholder="Digite o título da transação">
