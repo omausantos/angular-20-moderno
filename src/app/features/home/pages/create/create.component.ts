@@ -5,6 +5,8 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { MatError, MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { TransactionType } from '../../../../shared/transaction/enum/transaction-type';
+import { NgxMaskDirective } from 'ngx-mask';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -18,6 +20,8 @@ import { TransactionType } from '../../../../shared/transaction/enum/transaction
     MatButton,
     MatButtonToggleGroup,
     MatButtonToggle,
+    NgxMaskDirective,
+    JsonPipe
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
