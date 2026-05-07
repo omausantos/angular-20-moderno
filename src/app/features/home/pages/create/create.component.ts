@@ -6,9 +6,10 @@ import { MatError, MatFormField, MatLabel, MatPrefix } from '@angular/material/f
 import { MatInput } from '@angular/material/input';
 import { TransactionType } from '../../../../shared/transaction/enum/transaction-type';
 import { NgxMaskDirective } from 'ngx-mask';
-import { JsonPipe } from '@angular/common';
 import { TransactionsService } from '../../../../shared/transaction/service/transactions.service';
 import { TransactionCreate } from '../../../../shared/transaction/interface/transaction';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create',
@@ -23,13 +24,14 @@ import { TransactionCreate } from '../../../../shared/transaction/interface/tran
     MatButtonToggleGroup,
     MatButtonToggle,
     NgxMaskDirective,
-    JsonPipe,
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
   private _transactionsService = inject(TransactionsService);
+  private _router = inject(Router);
+  private _snackBar = inject(MatSnackBar);
   readonly transactionType = TransactionType;
 
   form = new FormGroup({
@@ -55,6 +57,15 @@ export class CreateComponent {
       value: this.form.value.value as number,
     };
 
-    this._transactionsService.create(transaction).subscribe();
+    this._transactionsService.create(transaction).subscribe({
+      next: () => {
+        this._snackBar.open('Transação criada com sucesso!', 'Fechar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+        this._router.navigate(['/']);
+      },
+    });
   }
 }

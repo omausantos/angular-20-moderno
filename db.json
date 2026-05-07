@@ -17,6 +17,30 @@
       "title": "Mercado",
       "type": "OUTCOME",
       "value": 500
+    },
+    {
+      "type": "INCOME",
+      "title": "Agiotagem",
+      "value": 500,
+      "id": "TT0M6nU"
+    },
+    {
+      "type": "OUTCOME",
+      "title": "Bomba",
+      "value": 200,
+      "id": "eiZPEQ8"
+    },
+    {
+      "type": "OUTCOME",
+      "title": "Puta",
+      "value": 250,
+      "id": "dTA4TZR"
+    },
+    {
+      "type": "INCOME",
+      "title": "Pagamento",
+      "value": 520,
+      "id": "pXyTueh"
     }
   ]
 }
