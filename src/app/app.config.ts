@@ -26,7 +26,6 @@ export const appConfig: ApplicationConfig = {
         duration: 3000,
         verticalPosition: 'top',
         horizontalPosition: 'center',
-        panelClass: ['snack-bar-success'],
       },
     },
   ],

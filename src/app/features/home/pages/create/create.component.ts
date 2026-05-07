@@ -10,6 +10,7 @@ import { TransactionsService } from '../../../../shared/transaction/service/tran
 import { TransactionCreate } from '../../../../shared/transaction/interface/transaction';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FeedbackService } from '../../../../shared/transaction/service/feedback.service';
 
 @Component({
   selector: 'app-create',
@@ -31,7 +32,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CreateComponent {
   private _transactionsService = inject(TransactionsService);
   private _router = inject(Router);
-  private _snackBar = inject(MatSnackBar);
+  private _feedbackService = inject(FeedbackService);
   readonly transactionType = TransactionType;
 
   form = new FormGroup({
@@ -59,7 +60,7 @@ export class CreateComponent {
 
     this._transactionsService.create(transaction).subscribe({
       next: () => {
-        this._snackBar.open('Transação criada com sucesso!', 'Fechar');
+        this._feedbackService.success('Transação criada com sucesso!');
         this._router.navigate(['/']);
       },
     });
