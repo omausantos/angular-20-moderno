@@ -59,11 +59,7 @@ export class CreateComponent {
 
     this._transactionsService.create(transaction).subscribe({
       next: () => {
-        this._snackBar.open('Transação criada com sucesso!', 'Fechar', {
-          duration: 3000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-        });
+        this._snackBar.open('Transação criada com sucesso!', 'Fechar');
         this._router.navigate(['/']);
       },
     });

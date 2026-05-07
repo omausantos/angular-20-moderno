@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,14 @@ export const appConfig: ApplicationConfig = {
       thousandSeparator: '.',
       decimalMarker: ',',
     }),
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: ['snack-bar-success'],
+      },
+    },
   ],
 };

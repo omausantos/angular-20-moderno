@@ -3,6 +3,7 @@
 
 @use 'sass:map';
 @use '@angular/material' as mat;
+@use 'overrides/snack-bar.scss';
 
 // Note: Color palettes are generated from primary: #6657ec
 $_palettes: (
