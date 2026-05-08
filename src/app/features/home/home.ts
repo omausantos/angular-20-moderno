@@ -5,7 +5,7 @@ import { Transaction } from '../../shared/transaction/interface/transaction';
 import { EmptyStateComponent } from './components/empty-state/empty-state.component';
 import { TransactionsService } from '../../shared/transaction/service/transactions.service';
 import { MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +15,15 @@ import { RouterLink } from '@angular/router';
 })
 export class Home implements OnInit {
   private _transactionsService = inject(TransactionsService);
+  private _router = inject(Router);
   transactions = signal<Transaction[]>([]);
 
   ngOnInit(): void {
     this.getTransactions();
+  }
+
+  edit(transaction: Transaction) {
+    this._router.navigate(['edit', transaction.id]);
   }
 
   public getTransactions() {
