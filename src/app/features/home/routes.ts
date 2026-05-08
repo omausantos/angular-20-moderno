@@ -1,6 +1,7 @@
-import { Route, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { Home } from "./home";
-import { CreateComponent } from "./pages/create/create.component";
+import { CreateOrEditComponent } from "./pages/create-or-edit/create-or-edit.component";
+import { gettransactionbyidResolver } from "./pages/create-or-edit/resolvers/gettransactionbyid-resolver";
 
 export default <Routes> [
   {
@@ -9,6 +10,13 @@ export default <Routes> [
   },
   {
     path: 'create',
-    component: CreateComponent,
+    component: CreateOrEditComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: CreateOrEditComponent,
+    resolve: {
+      transaction: gettransactionbyidResolver
+    }
   }
 ];

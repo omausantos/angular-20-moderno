@@ -13,6 +13,10 @@ export class TransactionsService {
     return this._httpClient.get<Transaction[]>('http://localhost:3000/transactions');
   }
 
+  public getById(id: string): Observable<Transaction> {
+    return this._httpClient.get<Transaction>(`http://localhost:3000/transactions/${id}`);
+  }
+
   // criar um unico
   public create(transaction: TransactionCreate): Observable<Transaction> {
     return this._httpClient.post<Transaction>('http://localhost:3000/transactions', transaction);

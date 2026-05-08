@@ -9,11 +9,10 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { TransactionsService } from '../../../../shared/transaction/service/transactions.service';
 import { TransactionCreate } from '../../../../shared/transaction/interface/transaction';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FeedbackService } from '../../../../shared/transaction/service/feedback.service';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-or-edit',
   imports: [
     MatFormField,
     MatInput,
@@ -26,10 +25,10 @@ import { FeedbackService } from '../../../../shared/transaction/service/feedback
     MatButtonToggle,
     NgxMaskDirective,
   ],
-  templateUrl: './create.component.html',
-  styleUrl: './create.component.scss',
+  templateUrl: './create-or-edit.component.html',
+  styleUrl: './create-or-edit.component.scss',
 })
-export class CreateComponent {
+export class CreateOrEditComponent {
   private _transactionsService = inject(TransactionsService);
   private _router = inject(Router);
   private _feedbackService = inject(FeedbackService);
