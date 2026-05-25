@@ -1,5 +1,8 @@
-import { Transaction } from './../../../../shared/transaction/interface/transaction';
-import { Component, inject, Input, computed, input } from '@angular/core';
+import {
+  Transaction,
+  TransactionPayload,
+} from './../../../../shared/transaction/interface/transaction';
+import { Component, inject, computed, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
@@ -8,9 +11,9 @@ import { MatInput } from '@angular/material/input';
 import { TransactionType } from '../../../../shared/transaction/enum/transaction-type';
 import { NgxMaskDirective } from 'ngx-mask';
 import { TransactionsService } from '../../../../shared/transaction/service/transactions.service';
-import { TransactionCreate } from '../../../../shared/transaction/interface/transaction';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FeedbackService } from '../../../../shared/transaction/service/feedback.service';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-or-edit',
@@ -53,31 +56,33 @@ export class CreateOrEditComponent {
 
   isEdit = computed<boolean>(() => !!this.transaction());
 
+  private _createOrEdit(transaction: TransactionPayload): Observable<Transaction> {
+    if (this.isEdit()) {
+      return this._transactionsService
+        .edit(this.transaction()!.id, transaction)
+        .pipe(tap(() => this._feedbackService.success('Transação editada com sucesso!')));
+    } else {
+      return this._transactionsService
+        .create(transaction)
+        .pipe(tap(() => this._feedbackService.success('Transação criada com sucesso!')));
+    }
+  }
+
   onSubmit(): void {
     if (this.form().invalid) {
       return;
     }
 
-    const transaction: TransactionCreate = {
+    const transaction: TransactionPayload = {
       type: this.form().value.type as TransactionType,
       title: this.form().value.title as string,
       value: this.form().value.value as number,
     };
 
-    if (this.isEdit()) {
-      this._transactionsService.edit(this.transaction()!.id, transaction).subscribe({
-        next: () => {
-          this._feedbackService.success('Transação criada com sucesso!');
-          this._router.navigate(['/']);
-        },
-      });
-    } else {
-      this._transactionsService.create(transaction).subscribe({
-        next: () => {
-          this._feedbackService.success('Transação criada com sucesso!');
-          this._router.navigate(['/']);
-        },
-      });
-    }
+    this._createOrEdit(transaction).subscribe({
+      next: () => {
+        this._router.navigate(['/']);
+      },
+    });
   }
 }

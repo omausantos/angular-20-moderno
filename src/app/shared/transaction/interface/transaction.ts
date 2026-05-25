@@ -7,4 +7,4 @@ export interface Transaction {
   value: number;
 }
 
-export type TransactionCreate = Omit<Transaction, 'id'>
+export type TransactionPayload = Omit<Transaction, 'id'>

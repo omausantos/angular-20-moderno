@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Transaction, TransactionCreate } from '../interface/transaction';
+import { Transaction, TransactionPayload } from '../interface/transaction';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +18,11 @@ export class TransactionsService {
   }
 
   // criar um unico
-  public create(transaction: TransactionCreate): Observable<Transaction> {
+  public create(transaction: TransactionPayload): Observable<Transaction> {
     return this._httpClient.post<Transaction>('http://localhost:3000/transactions', transaction);
   }
 
-  public edit(id: number, transaction: TransactionCreate): Observable<Transaction> {
+  public edit(id: number, transaction: TransactionPayload): Observable<Transaction> {
     return this._httpClient.put<Transaction>(`http://localhost:3000/transactions/${id}`, transaction);
   }
 }
