@@ -23,6 +23,13 @@ export class TransactionsService {
   }
 
   public edit(id: number, transaction: TransactionPayload): Observable<Transaction> {
-    return this._httpClient.put<Transaction>(`http://localhost:3000/transactions/${id}`, transaction);
+    return this._httpClient.put<Transaction>(
+      `http://localhost:3000/transactions/${id}`,
+      transaction,
+    );
+  }
+
+  public remove(id: number): Observable<{}> {
+    return this._httpClient.delete<{}>(`http://localhost:3000/transactions/${id}`);
   }
 }

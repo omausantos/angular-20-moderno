@@ -6,6 +6,7 @@ import { EmptyStateComponent } from './components/empty-state/empty-state.compon
 import { TransactionsService } from '../../shared/transaction/service/transactions.service';
 import { MatButton } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
+import { FeedbackService } from '../../shared/transaction/service/feedback.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class Home implements OnInit {
   private _transactionsService = inject(TransactionsService);
   private _router = inject(Router);
   transactions = signal<Transaction[]>([]);
+  private _feedbackService = inject(FeedbackService);
 
   ngOnInit(): void {
     this.getTransactions();
@@ -26,9 +28,15 @@ export class Home implements OnInit {
     this._router.navigate(['edit', transaction.id]);
   }
 
-  remove(transaction: Transaction) {
-    this.transactions.update((transactions) =>
-      transactions.filter((item) => item.id !== transaction.id),
+  remove(transaction: Transaction): void {
+    this._transactionsService.remove(transaction.id).subscribe((next) => {
+      this.deleteTransactionFromArray(transaction);
+      this._feedbackService.success('Transação excluída com sucesso!')
+    });
+  }
+
+  private deleteTransactionFromArray(transaction: Transaction) {
+    this.transactions.update((transactions) => transactions.filter((item) => item.id !== transaction.id)
     );
   }
 
