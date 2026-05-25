@@ -5,7 +5,7 @@
 </div>
 
 @for (item of transactions(); track item.title) {
-  <app-transaction-item [transaction]="item" (edit)="edit($event)"></app-transaction-item>
+  <app-transaction-item [transaction]="item" (edit)="edit($event)" (remove)="remove($event)"></app-transaction-item>
 } @empty {
   <app-empty-state message="Nenhuma transação encontrada."></app-empty-state>
 }
