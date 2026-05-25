@@ -1,3 +1,4 @@
+import { Transaction } from './../../../../shared/transaction/interface/transaction';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -8,7 +9,7 @@ import { TransactionType } from '../../../../shared/transaction/enum/transaction
 import { NgxMaskDirective } from 'ngx-mask';
 import { TransactionsService } from '../../../../shared/transaction/service/transactions.service';
 import { TransactionCreate } from '../../../../shared/transaction/interface/transaction';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FeedbackService } from '../../../../shared/transaction/service/feedback.service';
 
 @Component({
@@ -33,18 +34,27 @@ export class CreateOrEditComponent {
   private _router = inject(Router);
   private _feedbackService = inject(FeedbackService);
   readonly transactionType = TransactionType;
+  readonly activatedRoute = inject(ActivatedRoute);
+
+  get transaction(): Transaction {
+    return this.activatedRoute.snapshot.data['transaction'];
+  }
 
   form = new FormGroup({
-    type: new FormControl('', {
+    type: new FormControl(this.transaction?.type ?? '', {
       validators: [Validators.required],
     }),
-    title: new FormControl('', {
+    title: new FormControl(this.transaction?.title ?? '', {
       validators: [Validators.required],
     }),
-    value: new FormControl(0, {
+    value: new FormControl(this.transaction?.value ?? 0, {
       validators: [Validators.required],
     }),
   });
+
+  get isEdit(): boolean {
+    return !!this.transaction;
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -57,11 +67,20 @@ export class CreateOrEditComponent {
       value: this.form.value.value as number,
     };
 
-    this._transactionsService.create(transaction).subscribe({
-      next: () => {
-        this._feedbackService.success('Transação criada com sucesso!');
-        this._router.navigate(['/']);
-      },
-    });
+    if (this.isEdit) {
+      this._transactionsService.edit(this.transaction.id, transaction).subscribe({
+        next: () => {
+          this._feedbackService.success('Transação criada com sucesso!');
+          this._router.navigate(['/']);
+        },
+      });
+    } else {
+      this._transactionsService.create(transaction).subscribe({
+        next: () => {
+          this._feedbackService.success('Transação criada com sucesso!');
+          this._router.navigate(['/']);
+        },
+      });
+    }
   }
 }

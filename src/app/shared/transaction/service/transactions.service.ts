@@ -21,4 +21,8 @@ export class TransactionsService {
   public create(transaction: TransactionCreate): Observable<Transaction> {
     return this._httpClient.post<Transaction>('http://localhost:3000/transactions', transaction);
   }
+
+  public edit(id: number, transaction: TransactionCreate): Observable<Transaction> {
+    return this._httpClient.put<Transaction>(`http://localhost:3000/transactions/${id}`, transaction);
+  }
 }
