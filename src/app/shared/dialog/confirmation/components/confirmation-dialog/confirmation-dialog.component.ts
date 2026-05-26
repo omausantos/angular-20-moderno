@@ -26,7 +26,7 @@ import { ConfirmationDialog } from '../../interfaces/confirmation-dialog';
 })
 export class ConfirmationDialogComponent {
   readonly dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
-  readonly dialogData = signal(inject<ConfirmationDialog>(MAT_DIALOG_DATA));
+  readonly dialogData = inject<ConfirmationDialog>(MAT_DIALOG_DATA);
 
   private _defaultDialogData: Partial<ConfirmationDialog> = {
     noBtnText: 'Não',
@@ -36,7 +36,7 @@ export class ConfirmationDialogComponent {
   resolvedDialogData = computed(() => {
     return {
       ...this._defaultDialogData,
-      ...this.dialogData(),
+      ...this.dialogData,
     };
   });
 }
